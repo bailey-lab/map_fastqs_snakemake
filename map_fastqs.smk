@@ -11,7 +11,7 @@ rule all:
 
 rule align_sam:
 	input:
-		indexed_genome='/work/bailey_share/resources/from_others/KevinW_resources/pFalciparum/genomes/Pf3D7.fasta',
+		indexed_genome=config['bt2_genome_path'],
 		fastq_file1=config['fastq_path_mate1'],
 		fastq_file2=config['fastq_path_mate2']
 	output:

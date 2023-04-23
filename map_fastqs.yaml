@@ -1,4 +1,5 @@
 sample_name: test_sample
 fastq_path_mate1: 
-fastq_path_mate2: 
-output_folder: 
+fastq_path_mate2: #set this to an empty string "" if your data is not paired.
+output_folder:
+bt2_genome_path: '/work/bailey_share/resources/from_others/KevinW_resources/pFalciparum/genomes/Pf3D7.fasta'
