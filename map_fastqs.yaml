@@ -1,5 +1,5 @@
 sample_name: Ashenafi_Ethiopia_samples
-fastq_path_mate1: 
-fastq_path_mate2: #set this to an empty string "" if your data is not paired.
-output_folder:
+fastq_path_mate1: /nfs/jbailey5/baileyweb/asimkin/seekdeep/DR_amplicon_panel/isabela_expanded_panel/ashenafi_haplotypes/haplotypes_by_sample/haplotypes_by_sample.fastq
+fastq_path_mate2: "" #set this to an empty string "" if your data is not paired.
+output_folder: Ashenafi_Ethiopia_samples
 bt2_genome_path: '/work/bailey_share/resources/from_others/KevinW_resources/pFalciparum/genomes/Pf3D7.fasta'
