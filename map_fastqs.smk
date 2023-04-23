@@ -6,20 +6,29 @@ configfile: 'map_fastqs.yaml'
 output_folder=config['output_folder']
 rule all:
 	input:
-		sorted_bam=output_folder+'/{sample}_sorted.bam', sample=config['sample_name'],
-		sorted_bam_index=output_folder+'/{sample}_sorted.bam.bai', sample=config['sample_name']
+		sorted_bam=expand(output_folder+'/bam_main_files/{sample}_sorted.bam', sample=config['sample_name']),
+		sorted_bam_index=expand(output_folder+'/bam_main_files/{sample}_sorted.bam.bai', sample=config['sample_name'])
 
 rule align_sam:
+	'''
+	the second fastq file is passed in as a parameter because if you have single
+	end sequencing data, then the second fastq file is not a file that 'needs'
+	to exist in order for the program to run. 2nd file empty quotes becomes
+	extra whitespace.
+	'''
 	input:
 		indexed_genome=config['bt2_genome_path'],
-		fastq_file1=config['fastq_path_mate1'],
+		fastq_file1=config['fastq_path_mate1']
+	params:
 		fastq_file2=config['fastq_path_mate2']
 	output:
 		sample_sam=output_folder+'/sam_main_files/{sample}.sam'
 	conda:
 		'envs/bwa.yaml'
 	shell:
-		'bwa mem -o {output.sample_sam} {input.indexed_genome} {input.fastq_file1} {input.fastq_file2}'
+		'''
+		bwa mem -o {output.sample_sam} {input.indexed_genome} {input.fastq_file1} {params.fastq_file2}
+		'''
 
 rule make_bam:
 	input:

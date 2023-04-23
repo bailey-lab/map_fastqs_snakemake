@@ -1,4 +1,4 @@
-sample_name: test_sample
+sample_name: Ashenafi_Ethiopia_samples
 fastq_path_mate1: 
 fastq_path_mate2: #set this to an empty string "" if your data is not paired.
 output_folder:
