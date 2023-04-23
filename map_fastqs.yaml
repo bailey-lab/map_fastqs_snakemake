@@ -1,5 +1,15 @@
-sample_name: Ashenafi_Ethiopia_samples
-fastq_path_mate1: /nfs/jbailey5/baileyweb/asimkin/seekdeep/DR_amplicon_panel/isabela_expanded_panel/ashenafi_haplotypes/haplotypes_by_sample/haplotypes_by_sample.fastq
-fastq_path_mate2: "" #set this to an empty string "" if your data is not paired.
-output_folder: Ashenafi_Ethiopia_samples
+#location of your bowtie2 indexed genome that you want to map to
 bt2_genome_path: '/work/bailey_share/resources/from_others/KevinW_resources/pFalciparum/genomes/Pf3D7.fasta'
+
+#location of your fastq file, or the first mate (R1) files if your data is paired end sequencing
+fastq_path_mate1: /nfs/jbailey5/baileyweb/asimkin/seekdeep/DR_amplicon_panel/isabela_expanded_panel/ashenafi_haplotypes/haplotypes_by_sample/haplotypes_by_sample.fastq
+
+#location of the second mate (R2) files if your data is paired end sequencing.
+fastq_path_mate2: "" #set this to an empty string "" if your data is not paired.
+
+#a name that will be given to your final sorted indexed bam file
+sample_name: Ashenafi_Ethiopia_samples
+
+#location where your output data will be sent.
+output_folder: Ashenafi_Ethiopia_samples
+
