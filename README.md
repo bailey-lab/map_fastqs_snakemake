@@ -1,7 +1,7 @@
 # map_fastqs_snakemake
 
 A program for mapping fastq files to a reference genome with bwa-mem, then
-converting the output bam file to a sorted indexed bam file suitable for
+converting the output sam file to a sorted indexed bam file suitable for
 viewing in UCSC genome browser or IGV, or passing on to subsequent analysis
 steps.
 
