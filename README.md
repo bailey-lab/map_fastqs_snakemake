@@ -25,6 +25,7 @@ run.
   - clone this git repository into the folder
 
 ## Usage:
+
   - Edit the config.yaml file using the instructions in the comments. Use a text
   editor that outputs unix line endings (e.g. vscode, notepad++, gedit, micro,
   emacs, vim, vi, etc.)
@@ -32,11 +33,20 @@ run.
   ```bash
   conda activate snakemake
   ```
-  - Run snakemake (if you have mamba) with:
+
+You can use this pipeline with locally installed copies of bwa and samtools, or
+you can have snakemake download copies of bwa and samtools automatically for
+you. If you choose to have snakemake do it, snakemake will install the programs
+in your current folder, in .snakemake/conda/verylongrandomstring
+  - To run the script with your locally installed programs, use:
+  ```bash
+  snakemake -s map_fastqs.smk --cores 4
+  ```
+  - To have snakemake use mamba (its default) to download programs, use:
   ```bash
   snakemake -s map_fastqs.smk --cores 4 --use-conda
   ```
-  - or (if you're using some other conda) with:
+  - or (if you're using some other conda) use:
   ```bash
   snakemake -s map_fastqs.smk --cores 4 --use-conda --conda-frontend conda
   ```
