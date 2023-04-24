@@ -9,6 +9,23 @@ rule all:
 		sorted_bam=expand(output_folder+'/bam_main_files/{sample}_sorted.bam', sample=config['sample_name']),
 		sorted_bam_index=expand(output_folder+'/bam_main_files/{sample}_sorted.bam.bai', sample=config['sample_name'])
 
+rule copy_files:
+	'''
+	copies snakemake and yaml files to the output folder so users and
+	collaborators can see how the data was produced.
+	'''
+	input:
+		snakefile='map_fastqs.smk',
+		configfile='map_fastqs.yaml'
+	output:
+		snakefile=output_folder+'/snakemake_parameters/map_fastqs.smk',
+		configfile=output_folder+'/snakemake_parameters/map_fastqs.yaml'
+	shell:
+		'''
+		cp {input.snakefile} {output.snakefile}
+		cp {input.configfile} output.configfile}
+		'''
+	
 rule align_sam:
 	'''
 	the second fastq file is passed in as a parameter because if you have single
