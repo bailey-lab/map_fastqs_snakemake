@@ -1,15 +1,24 @@
-#location of your bowtie2 indexed genome that you want to map to
-bt2_genome_path: '/work/bailey_share/resources/from_others/KevinW_resources/pFalciparum/genomes/Pf3D7.fasta'
+#location of your bwa indexed genome that you want to map to. You can generate
+#these files from a genome fasta with e.g. 'bwa index genome.fa'
+indexed_genome_path: '/work/bailey_share/resources/from_others/KevinW_resources/pFalciparum/genomes/Pf3D7.fasta'
 
-#location of your fastq file, or the first mate (R1) files if your data is paired end sequencing
-fastq_path_mate1: /nfs/jbailey5/baileyweb/asimkin/seekdeep/DR_amplicon_panel/isabela_expanded_panel/ashenafi_haplotypes/haplotypes_by_sample/haplotypes_by_sample.fastq
+#this program expects a single folder containing all of your fastq files. You
+#can make soft links to place your fastq files in a single folder (and rename
+#them) if needed.
+fastq_folder: /nfs/jbailey5/baileyweb/asimkin/seekdeep/DR_amplicon_panel/isabela_expanded_panel/ashenafi_haplotypes/haplotypes_by_sample
 
-#location of the second mate (R2) files if your data is paired end sequencing.
-fastq_path_mate2: "" #set this to an empty string "" if your data is not paired.
+#sample names associated with your fastq file. Only include the unique
+#beginnings of sample names (file extensions, mate pair numbers, etc. go in
+#'suffixes' below)
+samples:
+  - other_entries
 
-#a name that will be given to your final sorted indexed bam file
-sample_name: Ashenafi_Ethiopia_samples
+mate1_suffix: .fastq #part of file name ending shared across all samples. If
+#unpaired, file extensions of read files, e.g. .fastq, _L001.fastq,
+#_L001.fastq.gz, etc. If paired, could be _R1.fastq.gz, _L001_R1.fastq, etc.
+mate2_suffix: '' #leave this as empty quotes if unpaired. If paired, add mate2
+#suffix, e.g. _R2.fastq.gz, _L001.fastq, etc.
 
 #location where your output data will be sent.
-output_folder: Ashenafi_Ethiopia_samples
+output_folder: Ashenafi_Ethiopia_samples_other_entries_testing
 

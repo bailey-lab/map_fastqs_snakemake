@@ -6,8 +6,8 @@ configfile: 'map_fastqs.yaml'
 output_folder=config['output_folder']
 rule all:
 	input:
-		sorted_bam=expand(output_folder+'/bam_main_files/{sample}_sorted.bam', sample=config['sample_name']),
-		sorted_bam_index=expand(output_folder+'/bam_main_files/{sample}_sorted.bam.bai', sample=config['sample_name'])
+		sorted_bam=expand(output_folder+'/bam_main_files/{sample}_sorted.bam', sample=config['samples']),
+		sorted_bam_index=expand(output_folder+'/bam_main_files/{sample}_sorted.bam.bai', sample=config['samples'])
 
 rule copy_files:
 	'''
@@ -25,27 +25,48 @@ rule copy_files:
 		cp {input.snakefile} {output.snakefile}
 		cp {input.configfile} output.configfile}
 		'''
-	
-rule align_sam:
-	'''
-	the second fastq file is passed in as a parameter because if you have single
-	end sequencing data, then the second fastq file is not a file that 'needs'
-	to exist in order for the program to run. 2nd file empty quotes becomes
-	extra whitespace.
-	'''
-	input:
-		indexed_genome=config['bt2_genome_path'],
-		fastq_file1=config['fastq_path_mate1']
-	params:
-		fastq_file2=config['fastq_path_mate2']
-	output:
-		sample_sam=output_folder+'/sam_main_files/{sample}.sam'
-	conda:
-		'envs/bwa.yaml'
-	shell:
+
+if len(config['mate2_suffix'])>0:
+	print(len(config['mate2_suffix']))
+	rule align_paired_sam:
 		'''
-		bwa mem -o {output.sample_sam} {input.indexed_genome} {input.fastq_file1} {params.fastq_file2}
+		the second fastq file is passed in as a parameter because if you have single
+		end sequencing data, then the second fastq file is not a file that 'needs'
+		to exist in order for the program to run. 2nd file empty quotes becomes
+		extra whitespace.
 		'''
+		input:
+			indexed_genome=config['indexed_genome_path'],
+			fastq_file1=config['fastq_folder']+'/{sample}'+config['mate1_suffix'],
+			fastq_file2=config['fastq_folder']+'/{sample}'+config['mate2_suffix']
+		output:
+			sample_sam=output_folder+'/sam_main_files/{sample}.sam'
+		conda:
+			'envs/bwa.yaml'
+		shell:
+			'''
+			bwa mem -o {output.sample_sam} {input.indexed_genome} {input.fastq_file1} {input.fastq_file2}
+			'''
+
+else:
+	rule align_nonpaired_sam:
+		'''
+		the second fastq file is passed in as a parameter because if you have single
+		end sequencing data, then the second fastq file is not a file that 'needs'
+		to exist in order for the program to run. 2nd file empty quotes becomes
+		extra whitespace.
+		'''
+		input:
+			indexed_genome=config['indexed_genome_path'],
+			fastq_file1=config['fastq_folder']+'/{sample}'+config['mate1_suffix']
+		output:
+			sample_sam=output_folder+'/sam_main_files/{sample}.sam'
+		conda:
+			'envs/bwa.yaml'
+		shell:
+			'''
+			bwa mem -o {output.sample_sam} {input.indexed_genome} {input.fastq_file1}
+			'''
 
 rule make_bam:
 	input:
