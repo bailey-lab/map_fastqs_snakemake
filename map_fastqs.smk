@@ -7,7 +7,8 @@ output_folder=config['output_folder']
 rule all:
 	input:
 		sorted_bam=expand(output_folder+'/bam_main_files/{sample}_sorted.bam', sample=config['samples']),
-		sorted_bam_index=expand(output_folder+'/bam_main_files/{sample}_sorted.bam.bai', sample=config['samples'])
+		sorted_bam_index=expand(output_folder+'/bam_main_files/{sample}_sorted.bam.bai', sample=config['samples']),
+		mapped_sams=output_folder+'/viable_mapped_samples.txt'
 
 rule copy_files:
 	'''
@@ -97,3 +98,21 @@ rule index_bam:
 		'envs/samtools.yaml'
 	shell:
 		'samtools index {input.sorted_bam}'
+
+rule count_viable_sam:
+	'''
+	reports a list of the sam files that contain at least one correctly aligned
+	read - for any downstream analysis programs.
+	'''
+	input:
+		sample_sams=expand(output_folder+'/sam_main_files/{sample}.sam', sample=config['samples']),
+	output:
+		mapped_sams=output_folder+'/viable_mapped_samples.txt'
+	run:
+		output_file=open(output.mapped_sams, 'w')
+		for sample in input.sample_sams:
+			for line in open(sample):
+				line=line.split('\t')
+				if not line[0].startswith('@') and line[2]!='*':
+					output_file.write(sample.split('/')[-1].split('.sam')[0]+'\n')
+					break

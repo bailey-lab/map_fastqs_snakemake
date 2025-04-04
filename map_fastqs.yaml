@@ -1,35 +1,25 @@
 #location of your bwa indexed genome that you want to map to. You can generate
 #these files from a genome fasta with e.g. 'bwa index genome.fa'
-indexed_genome_path: '/work/bailey_share/resources/from_others/KevinW_resources/pFalciparum/genomes/Pf3D7.fasta'
+indexed_genome_path: '/nfs/jbailey5/baileyweb/bailey_share/UCSC_genome_browsers/private_UCSC_genome_browser/Pf_3D7/Pf_3D7_genome/PlasmoDB-62_Pfalciparum3D7_Genome.fasta'
 
 #this program expects a single folder containing all of your fastq files. You
 #can make soft links to place your fastq files in a single folder (and rename
 #them) if needed.
-fastq_folder: /nfs/jbailey5/baileyweb/igyuricz/DrugResistAmp_3D7/input_files/new_primer_ratios_trial/fastq_softlinks
+fastq_folder: '/nfs/jbailey5/baileyweb/bailey_share/processed_data/lfrynart/250102_MIP/analysis/input_data/fastq_files'
+
+mate1_suffix: _L001_R1_001.fastq.gz #part of file name ending shared across all samples. If
+#unpaired, file extensions of read files, e.g. .fastq, _L001.fastq,
+#_L001.fastq.gz, etc. If paired, could be _R1.fastq.gz, _L001_R1.fastq, etc.
+mate2_suffix: _L001_R2_001.fastq.gz #leave this as empty quotes if unpaired. If paired, add mate2
+#suffix, e.g. _R2.fastq.gz, _L001.fastq, etc.
+
+#location where your output data will be sent.
+output_folder: /nfs/jbailey5/baileyweb/bailey_share/UCSC_genome_browsers/private_UCSC_genome_browser/Pf_3D7/lfrynart/map_reads_to_UCSC/UCSC_reads/mapped_bams
 
 #sample names associated with your fastq file. Only include the unique
 #beginnings of sample names (file extensions, mate pair numbers, etc. go in
 #'suffixes' below)
 samples:
-  - 3D7-DBS3-1K-Rep32
-  - 3D7-DBS3-1K-Rep31
-  - 3D7-DBS2-1K-Rep22
-  - 3D7-DBS2-1K-Rep21
-  - 3D7-DBS1-1K-Rep12
-  - 3D7-DBS1-1K-Rep11
-  - 3D7-DBS3-10K-Rep32
-  - 3D7-DBS3-10K-Rep31
-  - 3D7-DBS2-10K-Rep22
-  - 3D7-DBS2-10K-Rep21
-  - 3D7-DBS1-10K-Rep12
-  - 3D7-DBS1-10K-Rep11
-
-mate1_suffix: _R1.fastq.gz #part of file name ending shared across all samples. If
-#unpaired, file extensions of read files, e.g. .fastq, _L001.fastq,
-#_L001.fastq.gz, etc. If paired, could be _R1.fastq.gz, _L001_R1.fastq, etc.
-mate2_suffix: _R2.fastq.gz #leave this as empty quotes if unpaired. If paired, add mate2
-#suffix, e.g. _R2.fastq.gz, _L001.fastq, etc.
-
-#location where your output data will be sent.
-output_folder: 04-30-23_new_primer_ratios_trial
-
+  - UE02111095-2022-wetseason-Ghana-1_S388
+  - UE0211092-2022-wetseason-Ghana-1_S382
+  - UE0211085-2022-wetseason-Ghana-1_S376
